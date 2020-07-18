@@ -1,0 +1,8 @@
+1. konlpy==0.5.2 설치
+2. JDK 8.0 설치
+3. JPype1== 1.0.1 설치
+4. Microsoft Build Tools 설치 (https://visualstudio.microsoft.com/ko/vs/older-downloads/)
+5. pillow==7.2.0 설치
+6. wordcloud==1.7.0 설치
+
+CUPTI_ERROR_INSUFFICIENT_PRIVILEGES 에러가 출력되는 경우 파이참을 관리자권한으로 실행

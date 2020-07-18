@@ -269,3 +269,5 @@ $RECYCLE.BIN/
 /14.CNN_Facial_Emotion_Recognition/data/val_X.npy
 /14.CNN_Facial_Emotion_Recognition/data/val_y.npy
 /14.CNN_Facial_Emotion_Recognition/logs/
+/09.LSTM_Abuse_Detection/data/
+/09.LSTM_Abuse_Detection/logs/
