@@ -261,13 +261,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,python,pycharm
-/14.CNN_Facial_Emotion_Recognition/data/fer2013.csv
-/14.CNN_Facial_Emotion_Recognition/data/test_X.npy
-/14.CNN_Facial_Emotion_Recognition/data/test_y.npy
-/14.CNN_Facial_Emotion_Recognition/data/train_X.npy
-/14.CNN_Facial_Emotion_Recognition/data/train_y.npy
-/14.CNN_Facial_Emotion_Recognition/data/val_X.npy
-/14.CNN_Facial_Emotion_Recognition/data/val_y.npy
-/14.CNN_Facial_Emotion_Recognition/logs/
-/09.LSTM_Abuse_Detection/data/
+/14.CNN_Facial_Emotion_Recognition/data/
+/09.LSTM_Abuse_Detection/data/word_dict
 /09.LSTM_Abuse_Detection/logs/
