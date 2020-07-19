@@ -1,24 +1,10 @@
 import os
-
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-
-from tqdm import tqdm
-import selenium
-from bs4 import BeautifulSoup
-from urllib.request import urlopen
-from urllib import parse
-import requests
-from PIL import Image
-
-import nltk
-from konlpy.tag import Okt
-import seaborn as sns
-import tensorflow as tf
-
 import re
 import json
+import numpy as np
+import pandas as pd
+from tqdm import tqdm
+from konlpy.tag import Okt
 from keras.preprocessing.sequence import pad_sequences
 from keras.preprocessing.text import Tokenizer
 
