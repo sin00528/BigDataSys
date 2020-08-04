@@ -1,0 +1,4 @@
+1. xgboost==1.1.1 설치
+2. catboost==0.23.2 설치
+3. lightgbm==2.3.1 설치
+4. selenium web driver 설치 (url : https://sites.google.com/a/chromium.org/chromedriver/downloads)
