@@ -1,1 +1,0 @@
-print("jang-ha" + "this means Jangwan-Hi")
