@@ -116,7 +116,7 @@ def get_data(money):
                 end = end[:5] + str(int(end.split('-')[1]) + 1) + '-01'
             else:
                 end = end[:5] + '0' + str(int(end.split('-')[1]) + 1) + '-01'
-        if end == '2010-05-01':
+        if end == '2019-03-01':
             return money
 
 
