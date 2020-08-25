@@ -1,0 +1,16 @@
+catboost
+xgboost
+xlrd
+openpyxl
+
+#pipwin install -r package.txt
+#xgboost
+#lightgbm
+#xlwt
+#shapely
+#gdal
+#fiona
+#pyproj
+#six
+#rtree
+#geopandas
