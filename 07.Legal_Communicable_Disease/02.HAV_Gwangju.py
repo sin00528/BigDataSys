@@ -1,4 +1,3 @@
-#%%
 import pandas as pd
 import numpy as np
 
@@ -11,32 +10,30 @@ from sklearn.neural_network import MLPRegressor
 from xgboost import XGBRegressor
 from catboost import CatBoostRegressor
 
-import shap
-from shap import force_plot, TreeExplainer
+import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib import font_manager, rc
-import matplotlib
+
+import shap
+from shap import TreeExplainer
+
+# Font Configuration
 matplotlib.rcParams['axes.unicode_minus'] = False
 font_name = font_manager.FontProperties(fname="C:/Windows/Fonts/NanumGothic.ttf").get_name()
 plt.rc("font", family=font_name)
 
-#%%
+# Load Data
 data = pd.read_excel("./data/HAV_Gwangju.xlsx", encoding="utf-8")
 
-#%%
-#X = pd.get_dummies(data.iloc[:, 2:])
-samples = data.iloc[-5:, 38:43]
+# Train Test Split
 X = data.iloc[:, 2:]
 y = data["환자"]
-
-#%%
-# Train Test Split
 X_train = X.iloc[:-5, :]
 X_test = X.iloc[-5:, :]
 y_train = y[:-5]
 y_test = y[-5:]
 
-#%%
+# Models
 model_list = [RandomForestRegressor,
               GradientBoostingRegressor,
               Lasso,
@@ -50,7 +47,6 @@ model_list = [RandomForestRegressor,
 score_list = []
 
 
-#%%
 def auto_learning(m_name, X, y):
     print(m_name.__name__)
     model = m_name().fit(X, y)
@@ -59,24 +55,15 @@ def auto_learning(m_name, X, y):
     print("RMSE: ", loss)
     score_list.append([str(m_name.__name__), round(loss, 2)])
 
-"""
-def preprocessingNA(m_name, X, y, test):
-    predict_list = []
-    model = m_name().fit(X, y)
-    y_pred = model.predict(test)
-    predict_list.append(y_pred)
-"""
 
-#%%
 for m_name in model_list:
     auto_learning(m_name, X_train, y_train)
 
-#%%
+
 # show models' loss Value
 score_df = pd.DataFrame(score_list, columns=["Model", "RMSE"])
 print(score_df)
 
-#%%
 # Draw a graph of Catboost
 model = CatBoostRegressor().fit(X_train, y_train, verbose=False)
 pred = model.predict(X_test)
@@ -99,7 +86,7 @@ plt.savefig('./plot/CatBoost_HAV_Gwangju_Shap.png', format='png')
 plt.show()
 plt.clf()
 
-#%%
+
 # Draw a graph of XGBboost
 model = XGBRegressor().fit(X_train, y_train, verbose=False)
 pred = model.predict(X_test)

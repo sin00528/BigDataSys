@@ -1,4 +1,3 @@
-# %%
 from selenium import webdriver as wb
 from selenium.webdriver.common.keys import Keys
 import pandas as pd
@@ -6,13 +5,10 @@ from bs4 import BeautifulSoup as bs
 import time
 from tqdm import tqdm
 
-# %%
-
+# Load Chrome WebDriver
 driver = wb.Chrome('driver/chromedriver.exe')
 driver.get('http://www.cdc.go.kr/npt/biz/npp/ist/bass/bassAreaStatsMain.do')
 
-
-# %%
 
 def datetime(start, end):
     driver.find_element_by_css_selector('input#areaDissFrmStartDt').click()
@@ -46,7 +42,7 @@ def check_box():
     driver.find_element_by_xpath('//*[@id="areaDissFrm"]/div/ul[2]/li[2]/div[2]/div/ul/li[6]/label/input').click()
     driver.find_element_by_xpath('//*[@id="areaDissFrm"]/div/ul[2]/li[2]/div[2]/div/ul/li[7]/label/input').click()
     driver.find_element_by_xpath('//*[@id="areaDissFrm"]/div/ul[2]/li[2]/div[2]/div/ul/li[7]/label/input').send_keys(Keys.ARROW_DOWN)
-    driver.find_element_by_xpath('//*[@id="areaDissFrm"]/div/ul[2]/li[2]/div[2]/div/ul/li[8]/label/input').send_keys(Keys.ARROW_DOWN)
+    driver.find_element_by_xpath('//*[@id="areaDissFrm"]/div/ul[2]/li[2]/div[2]/div/ul/li[7]/label/input').send_keys(Keys.ARROW_DOWN)
     driver.find_element_by_xpath('//*[@id="areaDissFrm"]/div/ul[2]/li[2]/div[2]/div/ul/li[8]/label/input').click()
     driver.find_element_by_xpath('//*[@id="areaDissFrm"]/div/ul[2]/li[2]/div[2]/div/ul/li[9]/label/input').click()
     driver.find_element_by_xpath('//*[@id="areaDissFrm"]/div/ul[2]/li[2]/div[2]/div/ul/li[10]/label/input').click()
@@ -67,15 +63,6 @@ def check_box():
 def search():
     driver.find_element_by_xpath('//*[@id="areaDissFrm"]/input[2]').click()
 
-
-# %%
-tbl = {
-    '날짜': [], '큰지역': [], '작은지역': [], '콜레라': [],
-    '장티푸스': [], '파라티푸스': [], '세균성이질': [],
-    '장출혈성대장균감염증': [], 'A형간염': []
-}
-
-# %%
 
 def get_data(tbl):
     start = pd.Timestamp('2016-01-01')
@@ -102,9 +89,14 @@ def get_data(tbl):
     return tbl
 
 
-# %%
+tbl = {
+    '날짜': [], '큰지역': [], '작은지역': [], '콜레라': [],
+    '장티푸스': [], '파라티푸스': [], '세균성이질': [],
+    '장출혈성대장균감염증': [], 'A형간염': []
+}
+
+# Start Web Crawling
 tbl = get_data(tbl)
 
-
-# %%
+# save xlsx file
 pd.DataFrame(tbl).to_excel("./data/KCDC_Gwangju.xlsx")
