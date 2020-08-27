@@ -1,0 +1,6 @@
+konlpy==0.5.2
+JPype1==1.0.1
+pillow==7.2.0
+wordcloud==1.7.0
+# JDK 8.0 install
+# Microsoft Build Tools install (https://visualstudio.microsoft.com/ko/vs/older-downloads/)
