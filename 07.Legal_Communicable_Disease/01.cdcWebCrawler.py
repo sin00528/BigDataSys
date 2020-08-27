@@ -1,10 +1,10 @@
 # %%
-
 from selenium import webdriver as wb
 from selenium.webdriver.common.keys import Keys
 import pandas as pd
 from bs4 import BeautifulSoup as bs
 import time
+from tqdm import tqdm
 
 # %%
 
@@ -40,12 +40,13 @@ def check_box():
 
     # 6개 감염병 체크 : 콜레라, 장티푸스, 파라티푸스, 세균성이질, 장출혈성대장균감염증, A형간염
     driver.find_element_by_xpath('//*[@id="areaDissFrm"]/div/ul[2]/li[2]/div[2]/button/div').click()
-    for i in range(4):
-        driver.find_element_by_xpath(
-            '//*[@id="areaDissFrm"]/div/ul[2]/li[2]/div[2]/div/ul/li[5]/label/input').send_keys(Keys.ARROW_DOWN)
     driver.find_element_by_xpath('//*[@id="areaDissFrm"]/div/ul[2]/li[2]/div[2]/div/ul/li[5]/label/input').click()
+    driver.find_element_by_xpath('//*[@id="areaDissFrm"]/div/ul[2]/li[2]/div[2]/div/ul/li[5]/label/input').send_keys(Keys.ARROW_DOWN)
+    driver.find_element_by_xpath('//*[@id="areaDissFrm"]/div/ul[2]/li[2]/div[2]/div/ul/li[5]/label/input').send_keys(Keys.ARROW_DOWN)
     driver.find_element_by_xpath('//*[@id="areaDissFrm"]/div/ul[2]/li[2]/div[2]/div/ul/li[6]/label/input').click()
     driver.find_element_by_xpath('//*[@id="areaDissFrm"]/div/ul[2]/li[2]/div[2]/div/ul/li[7]/label/input').click()
+    driver.find_element_by_xpath('//*[@id="areaDissFrm"]/div/ul[2]/li[2]/div[2]/div/ul/li[7]/label/input').send_keys(Keys.ARROW_DOWN)
+    driver.find_element_by_xpath('//*[@id="areaDissFrm"]/div/ul[2]/li[2]/div[2]/div/ul/li[8]/label/input').send_keys(Keys.ARROW_DOWN)
     driver.find_element_by_xpath('//*[@id="areaDissFrm"]/div/ul[2]/li[2]/div[2]/div/ul/li[8]/label/input').click()
     driver.find_element_by_xpath('//*[@id="areaDissFrm"]/div/ul[2]/li[2]/div[2]/div/ul/li[9]/label/input').click()
     driver.find_element_by_xpath('//*[@id="areaDissFrm"]/div/ul[2]/li[2]/div[2]/div/ul/li[10]/label/input').click()
@@ -53,15 +54,14 @@ def check_box():
 
     # 질병별 감염병 시도별 목록
     driver.find_element_by_xpath('//*[@id="areaDissFrm"]/div/ul[4]/li[2]/div[1]/button/div').click()
-    driver.find_element_by_xpath('//*[@id="areaDissFrm"]/div/ul[4]/li[2]/div[1]/div/ul/li[1]/label/input').click()
+    driver.find_element_by_xpath('//*[@id="areaDissFrm"]/div/ul[4]/li[2]/div[1]/div/ul/li[6]/label/input').click()
     driver.find_element_by_xpath('//*[@id="areaDissFrm"]/div/ul[4]/li[2]/div[1]/button/div').click()
 
-    time.sleep(1)
+    time.sleep(1.5)
     # 질병별 감염병 시군구 목록
     driver.find_element_by_xpath('//*[@id="areaDissFrm"]/div/ul[4]/li[2]/div[2]/button/div').click()
     driver.find_element_by_xpath('//*[@id="areaDissFrm"]/div/ul[4]/li[2]/div[2]/div/ul/li[1]/label/input').click()
     driver.find_element_by_xpath('//*[@id="areaDissFrm"]/div/ul[4]/li[2]/div[2]/button/div').click()
-
 
 
 def search():
@@ -69,64 +69,40 @@ def search():
 
 
 # %%
-
 tbl = {
     '날짜': [], '큰지역': [], '작은지역': [], '콜레라': [],
     '장티푸스': [], '파라티푸스': [], '세균성이질': [],
     '장출혈성대장균감염증': [], 'A형간염': []
 }
 
-
 # %%
 
 def get_data(tbl):
-    start = '2010-01-01'
-    end = '2010-02-01'
+    start = pd.Timestamp('2016-01-01')
+    temp = start + pd.DateOffset(months=1)
+    end = pd.Timestamp('2019-01-01')
     check_box()
-    while True:
-        datetime(start, end)
+    for i in tqdm(range((end - start).days//30)):
+        datetime(str(start)[:10], str(temp)[:10])
         search()
+        time.sleep(2)
         soup = bs(driver.page_source, 'html.parser')
-        i = 1
-        time.sleep(1.5)
-        while True:
-            i += 1
-            try:
-                soup.select_one('#table > tbody > tr:nth-child({}) > td:nth-child(1)'.format(i)).text
-                print('가능')
-            except:
-                print('불가능')
-                break
-            tbl['날짜'].append(start[:-3])
-            tbl['큰지역'].append(soup.select_one('#table > tbody > tr:nth-child({}) > td:nth-child(1)'.format(i)).text)
-            tbl['작은지역'].append(soup.select_one('#table > tbody > tr:nth-child({}) > td:nth-child(2)'.format(i)).text)
-            tbl['콜레라'].append(soup.select_one('#table > tbody > tr:nth-child({}) > td:nth-child(3)'.format(i)).text)
-            tbl['장티푸스'].append(soup.select_one('#table > tbody > tr:nth-child({}) > td:nth-child(4)'.format(i)).text)
-            tbl['파라티푸스'].append(soup.select_one('#table > tbody > tr:nth-child({}) > td:nth-child(5)'.format(i)).text)
-            tbl['세균성이질'].append(soup.select_one('#table > tbody > tr:nth-child({}) > td:nth-child(6)'.format(i)).text)
-            tbl['장출혈성대장균감염증'].append(
-                soup.select_one('#table > tbody > tr:nth-child({}) > td:nth-child(7)'.format(i)).text)
-            tbl['A형간염'].append(soup.select_one('#table > tbody > tr:nth-child({}) > td:nth-child(8)'.format(i)).text)
-        start = end
-        if int(end.split('-')[1]) + 1 == 13:
-            end = str(int(end.split('-')[0]) + 1) + '-01-01'
-        else:
-            if len(str(int(end.split('-')[1]) + 1)) == 2:
-                end = end[:5] + str(int(end.split('-')[1]) + 1) + '-01'
-            else:
-                end = end[:5] + '0' + str(int(end.split('-')[1]) + 1) + '-01'
-        if end == '2010-04-01':
-            return tbl
-
+        for idx in range(3, 8):
+            tbl['날짜'].append(str(start)[:10])
+            tbl['큰지역'].append(soup.select_one('#table > tbody > tr:nth-child({}) > td:nth-child(1)'.format(idx)).text)
+            tbl['작은지역'].append(soup.select_one('#table > tbody > tr:nth-child({}) > td:nth-child(2)'.format(idx)).text)
+            tbl['콜레라'].append(soup.select_one('#table > tbody > tr:nth-child({}) > td:nth-child(3)'.format(idx)).text)
+            tbl['장티푸스'].append(soup.select_one('#table > tbody > tr:nth-child({}) > td:nth-child(4)'.format(idx)).text)
+            tbl['파라티푸스'].append(soup.select_one('#table > tbody > tr:nth-child({}) > td:nth-child(5)'.format(idx)).text)
+            tbl['세균성이질'].append(soup.select_one('#table > tbody > tr:nth-child({}) > td:nth-child(6)'.format(idx)).text)
+            tbl['장출혈성대장균감염증'].append(soup.select_one('#table > tbody > tr:nth-child({}) > td:nth-child(7)'.format(idx)).text)
+            tbl['A형간염'].append(soup.select_one('#table > tbody > tr:nth-child({}) > td:nth-child(8)'.format(idx)).text)
+        temp = start + pd.DateOffset(months=1)
+        start = temp
+    return tbl
 
 # %%
-
 tbl = get_data(tbl)
 
 # %%
-
-pd.DataFrame(tbl).to_excel("./data/kcdc_data.xlsx")
-
-# %%
-
-soup = bs(driver.page_source, 'html.parser')
+pd.DataFrame(tbl).to_excel("./data/KCDC_Gwangju.xlsx")
