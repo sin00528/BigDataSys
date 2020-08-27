@@ -19,7 +19,7 @@ from shap import TreeExplainer
 
 # Font Configuration
 matplotlib.rcParams['axes.unicode_minus'] = False
-font_name = font_manager.FontProperties(fname="./fonts/NanumGothic.ttf").get_name()
+font_name = font_manager.FontProperties(fname="C:/Windows/Fonts/malgun.ttf").get_name()
 plt.rc("font", family=font_name)
 
 # Load Data
