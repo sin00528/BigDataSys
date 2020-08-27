@@ -11,13 +11,22 @@ from sklearn.neural_network import MLPRegressor
 from xgboost import XGBRegressor
 from catboost import CatBoostRegressor
 
+import shap
+from shap import force_plot, TreeExplainer
 import matplotlib.pyplot as plt
+from matplotlib import font_manager, rc
+import matplotlib
+matplotlib.rcParams['axes.unicode_minus'] = False
+font_name = font_manager.FontProperties(fname="C:/Windows/Fonts/NanumGothic.ttf").get_name()
+plt.rc("font", family=font_name)
 
 #%%
 data = pd.read_excel("./data/HAV_Gwangju.xlsx", encoding="utf-8")
 
 #%%
-X = pd.get_dummies(data.iloc[:, 2:])
+#X = pd.get_dummies(data.iloc[:, 2:])
+samples = data.iloc[-5:, 38:43]
+X = data.iloc[:, 2:]
 y = data["환자"]
 
 #%%
@@ -80,13 +89,18 @@ plt.ylim(-0.1, 1)
 plt.title("CatBboost Prediction")
 plt.ylabel('Ground Truth')
 plt.xlabel('Prediction')
-plt.savefig('./plot/CatBoost_HAV_Gwangju.png')
+plt.savefig('./plot/CatBoost_HAV_Gwangju_Scatter.png')
 plt.show()
+plt.clf()
 
+shap_values = shap.TreeExplainer(model).shap_values(X)
+shap.summary_plot(shap_values, X, max_display=5, show=False, plot_size=(20, 5))
+plt.savefig('./plot/CatBoost_HAV_Gwangju_Shap.png', format='png')
+plt.show()
+plt.clf()
 
 #%%
 # Draw a graph of XGBboost
-#model = CatBoostRegressor().fit(X_train, y_train, verbose=False)
 model = XGBRegressor().fit(X_train, y_train, verbose=False)
 pred = model.predict(X_test)
 
@@ -98,7 +112,12 @@ plt.ylim(-0.1, 1)
 plt.title("XGBboost Prediction")
 plt.ylabel('Ground Truth')
 plt.xlabel('Prediction')
-plt.savefig('./plot/XGBoost_HAV_Gwangju.png')
+plt.savefig('./plot/XGBoost_HAV_Gwangju_Scatter.png')
 plt.show()
+plt.clf()
 
-
+shap_values = shap.TreeExplainer(model).shap_values(X)
+shap.summary_plot(shap_values, X, max_display=5, show=False, plot_size=(20, 5))
+plt.savefig('./plot/XGBoost_HAV_Gwangju_Shap.png', format='png')
+plt.show()
+plt.clf()
