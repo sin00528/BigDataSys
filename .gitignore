@@ -261,8 +261,9 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,python,pycharm
-/14.CNN_Facial_Emotion_Recognition/data/
-/09.LSTM_Abuse_Detection/data/word_dict
-/09.LSTM_Abuse_Detection/logs/
 /07.Legal_Communicable_Disease/jupyter
 /07.Legal_Communicable_Disease/driver
+/07.Legal_Communicable_Disease/catboost_info
+/09.LSTM_Abuse_Detection/data/word_dict
+/09.LSTM_Abuse_Detection/logs/
+/14.CNN_Facial_Emotion_Recognition/data/

@@ -101,8 +101,10 @@ def get_data(tbl):
         start = temp
     return tbl
 
+
 # %%
 tbl = get_data(tbl)
+
 
 # %%
 pd.DataFrame(tbl).to_excel("./data/KCDC_Gwangju.xlsx")

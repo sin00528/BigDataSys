@@ -21,6 +21,7 @@ X = pd.get_dummies(data.iloc[:, 2:])
 y = data["환자"]
 
 #%%
+# Train Test Split
 X_train = X.iloc[:-5, :]
 X_test = X.iloc[-5:, :]
 y_train = y[:-5]
@@ -76,9 +77,28 @@ plt.scatter(y_test, pred)
 plt.plot(num)
 plt.xlim(-0.1, 1)
 plt.ylim(-0.1, 1)
+plt.title("CatBboost Prediction")
 plt.ylabel('Ground Truth')
 plt.xlabel('Prediction')
-plt.savefig('HAV_Gwangju.png')
+plt.savefig('./plot/CatBoost_HAV_Gwangju.png')
+plt.show()
+
+
+#%%
+# Draw a graph of XGBboost
+#model = CatBoostRegressor().fit(X_train, y_train, verbose=False)
+model = XGBRegressor().fit(X_train, y_train, verbose=False)
+pred = model.predict(X_test)
+
+num = np.linspace(0, 10, 10)
+plt.scatter(y_test, pred)
+plt.plot(num)
+plt.xlim(-0.1, 1)
+plt.ylim(-0.1, 1)
+plt.title("XGBboost Prediction")
+plt.ylabel('Ground Truth')
+plt.xlabel('Prediction')
+plt.savefig('./plot/XGBoost_HAV_Gwangju.png')
 plt.show()
 
 
