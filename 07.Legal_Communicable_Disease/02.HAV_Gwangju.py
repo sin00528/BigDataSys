@@ -87,7 +87,7 @@ plt.savefig('./plot/CatBoost_HAV_Gwangju_Shap.png', format='png')
 plt.show()
 plt.clf()
 
-
+"""
 # Draw a graph of XGBboost
 model = XGBRegressor().fit(X_train, y_train, verbose=False)
 pred = model.predict(X_test)
@@ -110,3 +110,4 @@ plt.subplots_adjust(right=1.1)
 plt.savefig('./plot/XGBoost_HAV_Gwangju_Shap.png', format='png')
 plt.show()
 plt.clf()
+"""
