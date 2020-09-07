@@ -267,3 +267,4 @@ $RECYCLE.BIN/
 /09.LSTM_Abuse_Detection/data/word_dict
 /09.LSTM_Abuse_Detection/logs/
 /14.CNN_Facial_Emotion_Recognition/data/
+/08.Holiday_Pharmacy_Visualization/secrets.json
