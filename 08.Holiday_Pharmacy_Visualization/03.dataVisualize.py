@@ -10,9 +10,9 @@ plt.rc('font', family='Malgun Gothic')
 plt.rc('axes', unicode_minus=False)
 
 BASE_PATH = './data/'
-seoul_pharm_sat = pd.read_csv(BASE_PATH + 'seoul_pharm_sat.csv', thousands=',', encoding='utf-8')
-seoul_pharm_sun = pd.read_csv(BASE_PATH + 'seoul_pharm_sun.csv', thousands=',', encoding='utf-8')
-seoul_pharm_holi = pd.read_csv(BASE_PATH + 'seoul_pharm_holi.csv', thousands=',', encoding='utf-8')
+seoul_pharm_sat = pd.read_csv(BASE_PATH + 'seoul_pharm_is_open_sat.csv', thousands=',', encoding='utf-8')
+seoul_pharm_sun = pd.read_csv(BASE_PATH + 'seoul_pharm_is_open_sun.csv', thousands=',', encoding='utf-8')
+seoul_pharm_holi = pd.read_csv(BASE_PATH + 'seoul_pharm_is_open_holi.csv', thousands=',', encoding='utf-8')
 
 
 ### Step 05 - 휴일 오픈 약국 시각화 처리
@@ -52,7 +52,7 @@ map.save('./map/seoul_pharm_sat_markers.html')
 pharm_num = seoul_pharm_sat.groupby(seoul_pharm_sat['구별']).size()
 
 # 토요일 오픈 개수 map 확인
-seoul_pharm_sat_coord = pd.read_csv(BASE_PATH + 'seoul_pharm_sat.csv', thousands=',', encoding='utf-8')
+seoul_pharm_sat_coord = pd.read_csv(BASE_PATH + 'seoul_pharm_is_open_sat.csv', thousands=',', encoding='utf-8')
 map = folium.Map(location=[37.5502, 126.982], zoom_start=11)
 
 map.choropleth(geo_data=geo_str,
@@ -89,7 +89,7 @@ map.save('./map/seoul_pharm_sun_markers.html')
 pharm_num = seoul_pharm_sun.groupby(seoul_pharm_sun['구별']).size()
 
 # 일요일 오픈 개수 map 확인
-seoul_pharm_sun_coord = pd.read_csv(BASE_PATH + 'seoul_pharm_sun.csv', thousands=',', encoding='utf-8')
+seoul_pharm_sun_coord = pd.read_csv(BASE_PATH + 'seoul_pharm_is_open_sun.csv', thousands=',', encoding='utf-8')
 map = folium.Map(location=[37.5502, 126.982], zoom_start=11)
 
 map.choropleth(geo_data=geo_str,
@@ -126,7 +126,7 @@ map.save('./map/seoul_pharm_holi_markers.html')
 pharm_num = seoul_pharm_holi.groupby(seoul_pharm_holi['구별']).size()
 
 # 공휴일 오픈 개수 map 확인
-seoul_pharm_holi_coord = pd.read_csv(BASE_PATH + 'seoul_pharm_holi.csv', thousands=',', encoding='utf-8')
+seoul_pharm_holi_coord = pd.read_csv(BASE_PATH + 'seoul_pharm_is_open_holi.csv', thousands=',', encoding='utf-8')
 map = folium.Map(location=[37.5502, 126.982], zoom_start=11)
 
 map.choropleth(geo_data=geo_str,

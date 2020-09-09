@@ -1,5 +1,3 @@
-import folium
-import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -7,12 +5,11 @@ import googlemaps
 import json
 from tqdm import tqdm
 
-
 # %%
 BASE_PATH = './data/'
 
 # 데이터 셋 불러오기
-pharm_data = pd.read_csv(BASE_PATH + 'seoul_pharm_raw.csv', thousands=',', encoding='utf-8', index_col=0)
+pharm_data = pd.read_csv(BASE_PATH + '/raw/seoul_pharm_raw.csv', thousands=',', encoding='utf-8', index_col=0)
 
 # 필요 없는 데이터 컬럼 삭제
 del pharm_data['폐업일자']
@@ -82,8 +79,8 @@ pharm_data_clear.insert(0, '경도', pharm_coord['경도'])
 pharm_data_clear.insert(0, '위도', pharm_coord['위도'])
 
 # 전처리된 데이터 저장 및 로드
-pharm_data_clear.to_csv(BASE_PATH + "seoul_pharm_clear.csv", encoding='utf-8-sig', sep=',')
-pharm_data_clear = pd.read_csv(BASE_PATH + 'seoul_pharm_clear.csv', thousands=',', encoding='utf-8')
+pharm_data_clear.to_csv(BASE_PATH + "seoul_pharm_clean.csv", encoding='utf-8-sig', sep=',')
+pharm_data_clear = pd.read_csv(BASE_PATH + 'seoul_pharm_clean.csv', thousands=',', encoding='utf-8')
 
 # %% md
 

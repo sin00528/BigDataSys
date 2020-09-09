@@ -17,7 +17,7 @@ from urllib import parse
 
 BASE_PATH = './data/'
 
-pharm_data_clear = pd.read_csv(BASE_PATH + 'seoul_pharm_clear.csv', thousands=',', encoding='utf-8')
+pharm_data_clear = pd.read_csv(BASE_PATH + 'seoul_pharm_clean.csv', thousands=',', encoding='utf-8')
 
 query_pharm_name = pharm_data_clear["사업장명"]
 query_pharm_district = pharm_data_clear["구별"]
@@ -148,8 +148,8 @@ seoul_pharm = seoul_pharm[['약국명',
 
 # %%
 # 정리된 약국별 휴일 오픈 csv 저장
-seoul_pharm.to_csv(BASE_PATH + "seoul_pharm_open.csv", encoding='utf-8-sig', sep=',')
-seoul_pharm = pd.read_csv(BASE_PATH + "seoul_pharm_open.csv", thousands=',', encoding='utf-8')
+seoul_pharm.to_csv(BASE_PATH + "seoul_pharm_open_data.csv", encoding='utf-8-sig', sep=',')
+seoul_pharm = pd.read_csv(BASE_PATH + "seoul_pharm_open_data.csv", thousands=',', encoding='utf-8')
 
 # %%
 ## 토요일에 오픈하는 것만 찾기
@@ -165,7 +165,7 @@ seoul_pharm_sat = pd.DataFrame({'약국명': seoul_pharm_sat["약국명"],
 # 토요일 오픈 약국만 csv 저장 및 로드
 seoul_pharm_sat = seoul_pharm_sat.dropna(subset=['위도', '경도'])
 seoul_pharm_sat = seoul_pharm_sat.reset_index(drop=True)
-seoul_pharm_sat.to_csv(BASE_PATH + "seoul_pharm_sat.csv", encoding='utf-8-sig', sep=',')
+seoul_pharm_sat.to_csv(BASE_PATH + "seoul_pharm_is_open_sat.csv", encoding='utf-8-sig', sep=',')
 
 # %%
 ## 일요일에 오픈하는 것만 찾기
@@ -181,7 +181,7 @@ seoul_pharm_sun = pd.DataFrame({'약국명': seoul_pharm_sun["약국명"],
 # 일요일 오픈 약국만 csv 저장 및 로드
 seoul_pharm_sun = seoul_pharm_sun.dropna(subset=['위도', '경도'])
 seoul_pharm_sun = seoul_pharm_sun.reset_index(drop=True)
-seoul_pharm_sun.to_csv(BASE_PATH + "seoul_pharm_sun.csv", encoding='utf-8-sig', sep=',')
+seoul_pharm_sun.to_csv(BASE_PATH + "seoul_pharm_is_open_sun.csv", encoding='utf-8-sig', sep=',')
 
 # %%
 ## 공휴일에 오픈하는 것만 찾기
@@ -197,4 +197,4 @@ seoul_pharm_holi = pd.DataFrame({'약국명': seoul_pharm_holi["약국명"],
 # 공휴일 오픈 약국만 csv 저장 및 로드
 seoul_pharm_holi = seoul_pharm_holi.dropna(subset=['위도', '경도'])
 seoul_pharm_holi = seoul_pharm_holi.reset_index(drop=True)
-seoul_pharm_holi.to_csv(BASE_PATH + "seoul_pharm_holi.csv", encoding='utf-8-sig', sep=',')
+seoul_pharm_holi.to_csv(BASE_PATH + "seoul_pharm_is_open_holi.csv", encoding='utf-8-sig', sep=',')
